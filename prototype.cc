@@ -1,4 +1,5 @@
 #include<string>
+#include<iostream>
 using namespace std;
 class Cloneable{
     public:
@@ -6,9 +7,14 @@ class Cloneable{
     virtual Cloneable* Clone()=0;
 };
 class WorkExperience:public Cloneable{
-    private:
+    // private:
+    public:
         string workDate;
         string company;
+        WorkExperience(){}
+        WorkExperience(string workDate,string company):
+        workDate(workDate),company(company){}
+       
     public:
         Cloneable* Clone()
         {
@@ -21,7 +27,7 @@ class WorkExperience:public Cloneable{
 
 
         //... the other codes remain empty.
-
+        virtual ~WorkExperience() {}
 };
 class Resume:public Cloneable{
     private:
@@ -32,7 +38,6 @@ class Resume:public Cloneable{
         {
             // this->work=(3);
             // this->work=work;//mine, wrong one
-            // this->work=(WorkExperience *)work->Clone();
                this->work = (WorkExperience*)work->Clone();
         }
         
@@ -40,14 +45,19 @@ class Resume:public Cloneable{
         Resume(string name)
         {
              //... the other codes remain empty.
+             this->name=name;
+             this->work=new WorkExperience();
         }
         void SetPersonalInfo(string sex,string age)
         {
             //... the other codes remain empty.
+            this->age=age;
         }
         void SetWorkExperience(string workDate,string company)
         {
              //... the other codes remain empty.
+             this->work->workDate=workDate;
+             this->work->company=company;
         }
         Cloneable* Clone()
         {
@@ -58,6 +68,15 @@ class Resume:public Cloneable{
             obj->age=this->age;
             return obj;
         }
+        void display()
+        {
+            cout<<this->name<<" "<<this->age<<" "<<
+            this->work->workDate<<" "<<this->work->company<<endl;
+        }
+        // In Resume class
+        ~Resume() {
+            delete work;
+        }
 
 };
 int main()
@@ -67,7 +86,9 @@ int main()
     a->SetWorkExperience("1998~2000","XXXcompany");
     // Resume* b=(5);
     // Resume* b=a->Clone();//mine ,wrong one
+    std::cout<<"&a:"<<a;a->display();
     Resume* b=(Resume*)a->Clone();//error
     b->SetWorkExperience("2001~2006","YYYcompany");
+    std::cout<<"&b:"<<b;b->display();
     return 0;
 }
