@@ -19,6 +19,7 @@ class WorkExperience:public Cloneable{
             return obj;
         }
 
+
         //... the other codes remain empty.
 
 };
@@ -26,12 +27,15 @@ class Resume:public Cloneable{
     private:
         string name; string sex; string age;
         WorkExperience* work;
+        
         Resume(WorkExperience* work)
         {
             // this->work=(3);
-            this->work=work;//mine, wrong one
+            // this->work=work;//mine, wrong one
             // this->work=(WorkExperience *)work->Clone();
+               this->work = (WorkExperience*)work->Clone();
         }
+        
     public:
         Resume(string name)
         {
