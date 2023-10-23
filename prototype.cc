@@ -37,8 +37,8 @@ class Resume:public Cloneable{
         Resume(WorkExperience* work)
         {
             // this->work=(3);
-            // this->work=work;//mine, wrong one
-               this->work = (WorkExperience*)work->Clone();
+            this->work=work;//mine, wrong one
+            //    this->work = (WorkExperience*)work->Clone();
         }
         
     public:
@@ -90,5 +90,11 @@ int main()
     Resume* b=(Resume*)a->Clone();//error
     b->SetWorkExperience("2001~2006","YYYcompany");
     std::cout<<"&b:"<<b;b->display();
+    std::cout<<"&a:"<<a;a->display();
+    //Comment:this shocked me at first ,it changes the "a->work" when set the "b->work".
+    //so it is true that"this->work=work"
+    //but not "this->work = (WorkExperience*)work->Clone()"
+    
     return 0;
+
 }
