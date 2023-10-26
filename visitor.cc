@@ -4,7 +4,7 @@ class LibraryVisitor;
 class LibraryItemInterface{
     public:
     // (1);
-    void accept(LibraryVisitor* visitor);
+    virtual void accept(LibraryVisitor* visitor)=0;
 };
 class Article: public LibraryItemInterface{
     private:
@@ -32,7 +32,9 @@ class Book:public LibraryItemInterface{
 class LibraryVisitor{
     public: 
         // (2);
+        virtual void visit(Book* p_book)=0;
         // (3);
+        virtual void visit(Article* p_article)=0;
         virtual void printSum()=0;
 };
 class LibrarySumPrintVisitor:public LibraryVisitor//print total pages
@@ -52,6 +54,7 @@ int Article::getNumberOfPages(){
 void Article::accept(LibraryVisitor* visitor)
 {
     // (4);
+    visitor->visit(this);
 }
 Book::Book(string p_author,string p_title,int p_pages)
 {
@@ -65,5 +68,6 @@ int Book::getNumberOfPages(){
 void Book::accept(LibraryVisitor* visitor)
 {
     // (5);
+    visitor->visit(this);
     
 }
