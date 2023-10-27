@@ -4,24 +4,23 @@ referring to each other explicitly,
 and it lets you vary their interaction independently. */
 interface WebServiceMediator {
     // public (1);
-    public void buy(double money, WebService service);
-
-    public void SetAmazon(WebService amazon);
+    public void buy(double money, WebService service);// Mediates the purchase operation.
+    public void SetAmazon(WebService amazon);// Sets the Amazon web service.
 
     public void SetEbay(WebService ebay);
 
 }
 
-abstract class WebService {
+abstract class WebService {// Represents a generic web service.//There are all kinds of services,I just list two of them.
     // protected (2) mediator
     protected WebServiceMediator mediator;
 
-    public abstract void SetMediator(WebServiceMediator mediator);
+    public abstract void SetMediator(WebServiceMediator mediator);// Sets the mediator for the web service.
 
     // public (3);
-    public abstract void buyService(double money);
+    public abstract void buyService(double money);//Abstract method to buy a service.
 
-    public abstract void search(double money);
+    public abstract void search(double money);//Abstract method to perform a search operation.
 }
 
 class ConcreteServiceMediator implements WebServiceMediator {
@@ -90,11 +89,11 @@ public class mediator {
         WebService amazon = new Amazon();
         WebService ebay = new Ebay();
 
-        // Set the mediator
+        // Set the mediator//means to specify a mediator, maybe there are other mediators
         amazon.SetMediator(mediator);
         ebay.SetMediator(mediator);
 
-        // Register Web services with the mediator
+        // Register Web services with the mediator//register the instance to mediator.
         mediator.SetAmazon(amazon);
         mediator.SetEbay(ebay);
 
