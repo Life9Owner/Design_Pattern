@@ -45,7 +45,7 @@ class Folder:public AbstractFile{
         {
             childList.remove(file);
         }
-        virtual list<AbstractFile*> *getChildren()
+        virtual list<AbstractFile*>* getChildren()
         {
             // return (5);
             return &childList;
