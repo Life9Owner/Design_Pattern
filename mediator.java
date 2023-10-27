@@ -20,7 +20,7 @@ abstract class WebService {// Represents a generic web service.//There are all k
     // public (3);
     public abstract void buyService(double money);//Abstract method to buy a service.
 
-    public abstract void search(double money);//Abstract method to perform a search operation.
+    public abstract void search(double money);//Abstract method to perform a 'search' operation.
 }
 
 class ConcreteServiceMediator implements WebServiceMediator {
