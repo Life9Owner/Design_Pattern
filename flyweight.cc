@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include<map>
 using namespace std;
 enum PieceColor{BLACK, WHITE};   
 class PiecePos{
@@ -42,7 +43,8 @@ class PieceBoard{
         void SetPiece(PieceColor color,PiecePos pos){
             // (3)piece=nullptr;
             Piece* piece=nullptr;
-            if(color=BLACK)
+    
+            if(color==BLACK)
             {
                 piece=new BlackPiece(color,pos);
                 cout<<m_blackName <<"in position(" <<pos.getX() <<","<<pos.getY()<< ")";
@@ -66,8 +68,34 @@ class PieceBoard{
 
 };
 
-int main() {
+class PieceFactory {
+private:
+    map<PieceColor, Piece*> m_pieces;
 
+public:
+    ~PieceFactory() {
+        for (auto& pair : m_pieces) {
+            delete pair.second;
+        }
+        m_pieces.clear();
+    }
+
+    Piece* GetPiece(PieceColor color, PiecePos pos) {
+        if (m_pieces.find(color) == m_pieces.end()) {
+            // If a Piece of this color doesn't exist, create it.
+            if (color == BLACK) {
+                m_pieces[color] = new BlackPiece(color, pos);
+            } else {
+                m_pieces[color] = new WhitePiece(color, pos);
+            }
+        }
+        // Return the existing piece of the desired color.
+        return m_pieces[color];
+    }
+};
+
+int main() {
+    PieceFactory factory;
     PieceBoard board("BlackPlayer", "WhitePlayer");
 
     // Add pieces to the board.
