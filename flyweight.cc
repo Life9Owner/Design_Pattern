@@ -52,9 +52,9 @@ class PieceBoard{
             else
             {  
 
-                piece=new WhitePiece(color,pos);  //获取一颗白子
+                piece=new WhitePiece(color,pos);  
 
-                cout<<m_whiteName <<"在位置(" <<pos.getX() <<","<<pos.getY()<< ")";
+                cout<<m_whiteName <<"in position(" <<pos.getX() <<","<<pos.getY()<< ")";
 
                 // (  5  );
 
@@ -64,6 +64,20 @@ class PieceBoard{
              m_vecPiece.push_back(piece);
         }
 
-
 };
 
+int main() {
+
+    PieceBoard board("BlackPlayer", "WhitePlayer");
+
+    // Add pieces to the board.
+    board.SetPiece(BLACK, PiecePos(1, 1));
+    board.SetPiece(WHITE, PiecePos(2, 2));
+
+    // Attempt to reuse a black piece object.
+    board.SetPiece(BLACK, PiecePos(3, 3));
+
+    // Add more pieces as desired...
+
+    return 0;
+}
