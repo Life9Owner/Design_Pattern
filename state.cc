@@ -8,7 +8,15 @@ class CState{
         // (1);
         virtual double travel(int miles,FrequentFlyer* context)=0;
 };
-
+class CNoCustomer:public CState{
+    public:
+        double travel(int miles,FrequentFlyer* context)
+        {
+            cout<<"Your travel will not account for points\n";
+            return miles;
+        }
+   
+};
 class FrequentFlyer{
     friend class CBasic;
     friend class CSilver;
@@ -19,7 +27,19 @@ class FrequentFlyer{
     public:
         FrequentFlyer(){
             //why it is declared but the compiler tells me it isn't declared.
-            // state=new CNoCustomer();
+            state=new CNoCustomer();
+            nocustomer=new CNoCustomer();
+            // basic=new CBasic();
+            // silver=new CSilver();
+            // gold=new CGold();
+            /*The error you're encountering is due to the fact that
+             you've forward-declared the classes at the beginning,
+            but you haven't provided their complete definitions before
+            you try to create instances of them in the FrequentFlyer constructor.
+            Forward declarations are used to inform the compiler about 
+            the existence of a class, 
+            but you also need to provide the full class definition before 
+            you can create objects of that class.*/
             flyMiles=0;
             setState(nocustomer);
         }
@@ -34,15 +54,7 @@ class FrequentFlyer{
         }
 
 };
-class CNoCustomer:public CState{
-    public:
-        double travel(int miles,FrequentFlyer* context)
-        {
-            cout<<"Your travel will not account for points\n";
-            return miles;
-        }
-   
-};
+
 class CBasic:public CState{
     public:
         double travel(int miles,FrequentFlyer* context)
@@ -51,7 +63,6 @@ class CBasic:public CState{
             {
                 // (2);
                 context->setState(context->silver);
-
             }
             if(context->flyMiles>50000)
             {
