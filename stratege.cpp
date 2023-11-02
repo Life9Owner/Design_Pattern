@@ -5,6 +5,8 @@ class Interval;
 class PrintStrategy {
     public:
             //    （1）      ;
+            virtual void doPrint(Interval *val) =0;
+            
 };
 class Interval {
     private:
@@ -17,8 +19,9 @@ class Interval {
                upperBound = p_upper;
 
         }
-        void printInterval(PrintStrategy*ptr){
+        void printInterval(PrintStrategy* ptr){
                         // （2）      ;
+            ptr->doPrint(this);
 
         }
         double getLower() {   return lowerBound;    }
@@ -54,12 +57,15 @@ PrintStrategy* getStrategy(int type) {
     switch(type){
         case COMMA:
                 //    （3）      ;
+                st=new PrintIntervalsComma();
            break;
         case DOTS:
                 //    （4）      ;
+                st=new PrintIntervalsDots();
            break;
         case LINE:
                 //    （5）      ;
+                st=new PrintIntervalsLine();
            break;
 
          }
