@@ -1,6 +1,11 @@
 #include <iostream>
 #include <string>
 using namespace std;
+/*
+in Roman numerals, 'M' represents 1000, 
+'C' represents 100, 'X' represents 10, 
+and 'I' represents 1.
+ */
 class Thousand;
 class Hundred;
 class Ten;
